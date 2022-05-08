@@ -1,0 +1,75 @@
+<app-nav-bar></app-nav-bar>
+<div class="container" class="profile">
+  <div *ngIf="msg.length != 0" class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="todaymenuupdatedmsg.length != 0" class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{todaymenuupdatedmsg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <mat-card style="margin:10px;" *ngIf="canupdateTodaysMenu == true">
+    <label class="form-label">Today's Menu</label>
+    <input type="text" #todaysMenu class="form-control"/>
+    <button type="button" style="margin:5px;" (click)="updateTodaysMenu(todaysMenu.value)" class="btn btn-outline-success">Success</button>
+  </mat-card>
+  <div *ngIf="updateProfilemsg.length != 0" class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{updateProfilemsg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+    <h1 id="title">Profile</h1>
+    <div class="mb-3">
+      <label class="form-label">Restaurant Name</label>
+      <input
+        type="text"
+        class="form-control"
+        #restaurantName
+      />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Owner's Name</label>
+      <input type="text" #ownerName class="form-control"/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mobile Number</label>
+      <input type="text" #mobileNumber class="form-control"/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Address</label>
+      <input type="text" #address class="form-control"/>
+    </div>
+    <mat-card>
+    <mat-label>Type-Price </mat-label>
+    <div class="alert alert-primary" role="alert">
+      <p>Enter Type-Price in format eg:oneTime-1600,
+      Must include - symbol</p>
+      <p>
+      कृपया या स्वरूपातील प्रकार-किंमत प्रविष्ट करा उदाहरण: OneTime-1600,
+      - प्रतीक आवश्यक आहे
+      </p>
+    </div>
+    <mat-form-field class="example-chip-list">
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let rate of typePrice" (removed)="remove(rate)">
+          <span>Type : {{rate.rateType}} <br> Price : &#8377; {{rate.price}}</span>
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+          <input placeholder="Type-Price..."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+    </mat-form-field>
+    </mat-card>
+    <div id="submitbtn" style="margin:15px;" class="mb-3">
+      <button (click)="createProfile(restaurantName.value,ownerName.value,mobileNumber.value,address.value)" onClick="toggle()" class="btn btn-primary">Submit</button>
+    </div>
+    <div id="updatebtn"  style="margin:15px;display:none;" class="mb-3">
+      <button (click)="updateProfile(restaurantName.value,ownerName.value,mobileNumber.value,address.value)" onClick="toggle()" class="btn btn-primary">Update</button>
+    </div>
+</div>
+
+
