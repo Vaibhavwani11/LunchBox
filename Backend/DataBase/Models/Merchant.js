@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 const MerchantSchema = new mongoose.Schema({
 
-    _MerchnatId:{
+    _MerchantId:{
         type:mongoose.Schema.Types.ObjectId,
-        required:true
     },
     RestaurantName:{
         type:String

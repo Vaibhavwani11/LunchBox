@@ -11,6 +11,6 @@ const MerchantDetails = new mongoose.Schema({
     }
 });
 
-const MerchantUserDetails = mongoose.model('MerchantDetails',MerchantDetails);
+const MerchantUserDetails = mongoose.model('MerchantUserDetails',MerchantDetails);
 
 module.exports = MerchantUserDetails;
