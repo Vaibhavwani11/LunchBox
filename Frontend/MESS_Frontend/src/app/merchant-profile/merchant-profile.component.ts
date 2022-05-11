@@ -94,7 +94,10 @@ export class MerchantProfileComponent implements OnInit {
       Price:this.typePrice,
       TodaysMenu:""
     }
-    this.merchantclientservice.create_merchant_profile(this.merchantId,newProfile).subscribe((MerchantData:any)=>{
+    const regex = new RegExp(/[0-9]/);
+    if(regex.test(newProfile.MobileNumber))
+    {
+      this.merchantclientservice.create_merchant_profile(this.merchantId,newProfile).subscribe((MerchantData:any)=>{
         this.updateMerchantProfileId =  MerchantData.MerchantDetails[0]._id;
         if(MerchantData.Status == 1)
         {
@@ -107,6 +110,10 @@ export class MerchantProfileComponent implements OnInit {
           this.msg = "Sorry , plz try later !"
         }
     })
+    }else
+    {
+         this.msg = "Please enter valid Mobile Number !";
+    }
   }
 
   updateProfile(RestaurantName:string,OwnerName:string,MobileNumber:string,Address:string)
