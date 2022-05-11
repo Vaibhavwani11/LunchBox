@@ -5,19 +5,12 @@ const hashPassword = require('md5')
 
 const router = express.Router();
 
-// router.get('/getallresturant',(req,res)=>{
-//     Merchant.find({},(err,data)=>{
-//         res.send({Resturant:data})
-//     });
-// })
-
-router.get('/client/resturantbyaddress/:address',(req,res)=>{
-    const address = req.params.address;
-    Merchant.find({Address:address},(err,data)=>{
+router.get('/client/get/restaurant',(req,res)=>{
+    Merchant.find({},(err,data)=>{
         if(err)
-            res.send("sorry not found resturant !, plz enter valid resturant name.")
-        res.send({Status:1,Restaurants:data})
-    })
+            res.send({Status:0,error:err})
+        res.send({Restaurants:data})
+    });
 })
 
 router.post('/merchant/login',(req,res)=>{
@@ -89,6 +82,15 @@ router.post('/merchant/add/:merchantId',(req,res)=>{
         res.send({Status:0,error:err})
     }); 
 });
+
+router.get('/merchant/get/:ProfleId',(req,res)=>{
+    const profileId = req.params.ProfleId;
+    Merchant.findById(profileId,(err,data)=>{
+        if(err)
+            res.send({Status:0,error:err});
+        res.send({Status:1,ProfileDetails:data})
+    }).lean();
+})
 
 router.post('/merchant/update/:profileId',(req,res)=>{
     const profileId = req.params.profileId;
